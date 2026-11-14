@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "jettmobility",
+  "version": "${version}",
+  "name": "Jett Mobility",
+  "description": "Habilidades de mobilidade e efeitos de vento (Updraft, Cloudburst, Tailwind e ultimate visual) desbloqueadas por crafting. Multiplayer.",
+  "authors": [
+    "Jett Mobility"
+  ],
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "dev.openai.jettmobility.JettMobility"
+    ],
+    "client": [
+      "dev.openai.jettmobility.JettMobilityClient"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.18.0",
+    "minecraft": "1.21.11",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}

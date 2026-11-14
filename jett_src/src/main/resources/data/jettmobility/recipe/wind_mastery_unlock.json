@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:diamond",
+    "minecraft:diamond",
+    "minecraft:ender_eye",
+    "minecraft:phantom_membrane",
+    "minecraft:phantom_membrane",
+    "minecraft:feather"
+  ],
+  "result": {
+    "id": "jettmobility:wind_mastery_unlock",
+    "count": 1
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "key.category.jettmobility.main": "Jett Mobility",
+  "key.jettmobility.updraft": "Updraft",
+  "key.jettmobility.cloudburst": "Cloudburst",
+  "key.jettmobility.tailwind": "Tailwind",
+  "key.jettmobility.ultimate": "Ultimate (visual)",
+  "ability.jettmobility.updraft": "Updraft",
+  "ability.jettmobility.cloudburst": "Cloudburst",
+  "ability.jettmobility.tailwind": "Tailwind",
+  "ability.jettmobility.ultimate": "Tempestade",
+  "item.jettmobility.updraft_unlock": "Desbloqueio: Updraft",
+  "item.jettmobility.cloudburst_unlock": "Desbloqueio: Cloudburst",
+  "item.jettmobility.tailwind_unlock": "Desbloqueio: Tailwind",
+  "item.jettmobility.wind_mastery_unlock": "Desbloqueio: Tempestade (ultimate visual)",
+  "message.jettmobility.unlocked": "Habilidade desbloqueada: %s",
+  "message.jettmobility.already_unlocked": "Você já desbloqueou %s",
+  "hud.jettmobility.ready": "PRONTO",
+  "hud.jettmobility.locked": "BLOQ."
+}

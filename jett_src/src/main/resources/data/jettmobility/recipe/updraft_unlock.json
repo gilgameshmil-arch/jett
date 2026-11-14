@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:feather",
+    "minecraft:feather",
+    "minecraft:slime_ball",
+    "minecraft:piston"
+  ],
+  "result": {
+    "id": "jettmobility:updraft_unlock",
+    "count": 1
+  }
+}

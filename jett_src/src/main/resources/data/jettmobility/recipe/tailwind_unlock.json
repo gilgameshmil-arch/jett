@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:leather_boots",
+    "minecraft:feather",
+    "minecraft:feather",
+    "minecraft:sugar"
+  ],
+  "result": {
+    "id": "jettmobility:tailwind_unlock",
+    "count": 1
+  }
+}
