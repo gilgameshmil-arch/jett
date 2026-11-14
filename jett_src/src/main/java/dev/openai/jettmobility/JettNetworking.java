@@ -11,12 +11,20 @@ import net.minecraft.resources.Identifier;
 public final class JettNetworking {
     private JettNetworking() {}
 
-    /** Cliente -> servidor: "apertei a tecla da habilidade N". O servidor valida tudo. */
-    public record AbilityC2S(int ability) implements CustomPacketPayload {
+    public static final int FX_UPDRAFT = 0;
+    public static final int FX_DASH = 1;
+    public static final int FX_SPHERE = 2;
+    public static final int FX_STORM = 3;
+
+    /** Cliente -> servidor: "apertei a tecla da habilidade N". (dirX, dirZ) = direção de movimento desejada (Tailwind). */
+    public record AbilityC2S(int ability, float dirX, float dirZ) implements CustomPacketPayload {
         public static final Type<AbilityC2S> TYPE =
                 new Type<>(Identifier.fromNamespaceAndPath(JettMobility.MOD_ID, "ability"));
-        public static final StreamCodec<RegistryFriendlyByteBuf, AbilityC2S> CODEC =
-                StreamCodec.composite(ByteBufCodecs.VAR_INT, AbilityC2S::ability, AbilityC2S::new);
+        public static final StreamCodec<RegistryFriendlyByteBuf, AbilityC2S> CODEC = StreamCodec.composite(
+                ByteBufCodecs.VAR_INT, AbilityC2S::ability,
+                ByteBufCodecs.FLOAT, AbilityC2S::dirX,
+                ByteBufCodecs.FLOAT, AbilityC2S::dirZ,
+                AbilityC2S::new);
 
         @Override
         public Type<? extends CustomPacketPayload> type() { return TYPE; }
@@ -42,10 +50,31 @@ public final class JettNetworking {
         public Type<? extends CustomPacketPayload> type() { return TYPE; }
     }
 
+    /**
+     * Servidor -> todos os jogadores próximos: "toque o efeito visual X".
+     * Para efeitos que acompanham alguém, entityId é o jogador e (x,y,z) carrega a direção; para a esfera, é a posição.
+     */
+    public record FxS2C(int kind, int entityId, double x, double y, double z, int duration) implements CustomPacketPayload {
+        public static final Type<FxS2C> TYPE =
+                new Type<>(Identifier.fromNamespaceAndPath(JettMobility.MOD_ID, "fx"));
+        public static final StreamCodec<RegistryFriendlyByteBuf, FxS2C> CODEC = StreamCodec.composite(
+                ByteBufCodecs.VAR_INT, FxS2C::kind,
+                ByteBufCodecs.VAR_INT, FxS2C::entityId,
+                ByteBufCodecs.DOUBLE, FxS2C::x,
+                ByteBufCodecs.DOUBLE, FxS2C::y,
+                ByteBufCodecs.DOUBLE, FxS2C::z,
+                ByteBufCodecs.VAR_INT, FxS2C::duration,
+                FxS2C::new);
+
+        @Override
+        public Type<? extends CustomPacketPayload> type() { return TYPE; }
+    }
+
     public static void register() {
         PayloadTypeRegistry.playC2S().register(AbilityC2S.TYPE, AbilityC2S.CODEC);
         PayloadTypeRegistry.playS2C().register(StateS2C.TYPE, StateS2C.CODEC);
+        PayloadTypeRegistry.playS2C().register(FxS2C.TYPE, FxS2C.CODEC);
         ServerPlayNetworking.registerGlobalReceiver(AbilityC2S.TYPE,
-                (payload, context) -> JettAbilities.tryActivate(context.player(), payload.ability()));
+                (payload, context) -> JettAbilities.tryActivate(context.player(), payload.ability(), payload.dirX(), payload.dirZ()));
     }
 }

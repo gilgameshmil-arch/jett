@@ -18,6 +18,9 @@ public class JettMobility implements ModInitializer {
     public static final Item TAILWIND_UNLOCK = register(Ability.TAILWIND);
     public static final Item ULTIMATE_UNLOCK = register(Ability.ULTIMATE);
 
+    /** Faca de vento: item de coleção com modelo 3D próprio (mão e inventário). Não causa dano. */
+    public static final Item WIND_KNIFE = registerPlain("wind_knife");
+
     private static Item register(Ability ability) {
         ResourceKey<Item> key = ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(MOD_ID, ability.unlockItem));
         // Desde 1.21.2 o id do item precisa estar nas Properties antes de criar o Item.
@@ -25,8 +28,14 @@ public class JettMobility implements ModInitializer {
         return Registry.register(BuiltInRegistries.ITEM, key, item);
     }
 
+    private static Item registerPlain(String name) {
+        ResourceKey<Item> key = ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(MOD_ID, name));
+        return Registry.register(BuiltInRegistries.ITEM, key, new Item(new Item.Properties().setId(key).stacksTo(1)));
+    }
+
     @Override
     public void onInitialize() {
+        JettParticles.init();
         JettNetworking.register();
         JettAbilities.init();
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(entries -> {
@@ -34,6 +43,7 @@ public class JettMobility implements ModInitializer {
             entries.accept(CLOUDBURST_UNLOCK);
             entries.accept(TAILWIND_UNLOCK);
             entries.accept(ULTIMATE_UNLOCK);
+            entries.accept(WIND_KNIFE);
         });
     }
 }

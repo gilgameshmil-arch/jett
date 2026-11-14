@@ -1,38 +1,37 @@
-# Jett Mobility — Fabric 1.21.11
+# Jett Mobility — Fabric 1.21.11 (v1.2.0)
 
-Habilidades de mobilidade da Jett, desbloqueadas **permanentemente** por crafting. Funcionam por tecla (não é preciso segurar item), têm HUD, partículas e sons de vento, e funcionam em multiplayer (servidor autoritativo).
+Habilidades de mobilidade da Jett, desbloqueadas **permanentemente** por crafting. Funcionam por tecla (não é preciso segurar item), têm HUD, efeitos de vento próprios e funcionam em multiplayer (servidor autoritativo). Nenhuma habilidade causa dano.
 
 | Tecla | Habilidade | O que faz | Cooldown |
 |---|---|---|---|
-| Q | Updraft | Impulso vertical + rastro de vento | 8 s |
-| E | Cloudburst | Nuvem de vento onde você olha (até 12 blocos), dura 8 s (visual) | 15 s |
-| C | Tailwind | Dash horizontal na direção do olhar | 6 s |
-| X | Tempestade (ultimate visual) | Anel de "lâminas" de vento girando por 7 s. **Sem dano.** | 60 s |
+| Q | Updraft | Impulso vertical + corrente de ar subindo em espiral + anel de choque no chão | 8 s |
+| E | Cloudburst | Esfera de fumaça 3D (raio 3,2) assentada no chão onde você olha (até 18 blocos), girando e sumindo aos poucos em 9 s | 15 s |
+| C | Tailwind | Dash de ~12 blocos em 5 ticks na direção das teclas de movimento (sem teclas: para a frente) + dupla hélice de vento | 6 s |
+| X | Tempestade de Facas | Anel de 8 facas 3D girando em volta de você por 7 s + funil de vento | 60 s |
+
+## O que há de 3D e de customizado
+- **Faca de Vento** (`jettmobility:wind_knife`): modelo 3D de elementos (lâmina em folha com gume e espinha, guarda alada, cabo com faixas, pomo em anel, veios de vento brilhantes). Tem ajustes próprios para mão (1ª e 3ª pessoa), inventário, chão e moldura. Arquivo: `assets/jettmobility/models/item/wind_knife.json` (abre no Blockbench). Receita: 1 barra de ferro + 1 pena + 1 fragmento de ametista.
+- **Esfera da Cloudburst**: corpo 3D translúcido (8 discos de linhas, 176 elementos) em uma entidade `item_display`, visível a todos; cresce, gira e encolhe. Em volta, uma casca de fumaça girando, miolo fofo e poeira no chão.
+- **Anel de facas** (ultimate): 8 facas 3D num único modelo, girando e acompanhando o jogador.
+- **Partículas próprias** `smoke_puff` e `wind_wisp`, com texturas próprias (`textures/particle`).
+- O servidor manda um pacote "toque o efeito X" e cada cliente próximo gera as espirais; os modelos 3D são entidades reais. Por isso os outros jogadores veem tudo.
 
 ## Desbloqueio
-Cada habilidade tem um item (`Desbloqueio: …`) craftável com itens vanilla (receita sem forma, mesa de crafting):
+Itens `Desbloqueio: …` craftáveis com itens vanilla (receita sem forma). Use com o botão direito **uma vez**: é consumido e a habilidade fica permanente (salva no jogador, mantida ao morrer).
 
-- **Updraft**: 2 penas + 1 bola de slime + 1 pistão
-- **Cloudburst**: 2 lãs brancas + 1 bola de neve + 1 garrafa de vidro
-- **Tailwind**: botas de couro + 2 penas + 1 açúcar
-- **Tempestade**: 2 diamantes + 1 olho do Ender + 2 membranas de phantom + 1 pena
-
-Use o item com o botão direito **uma vez**: ele é consumido e a habilidade fica desbloqueada para sempre (salva no jogador e mantida ao morrer). Depois disso, é só apertar a tecla. Os itens também aparecem na aba criativa "Ferramentas e utilitários".
+- **Updraft**: 2 penas + bola de slime + pistão
+- **Cloudburst**: 2 lãs brancas + bola de neve + garrafa de vidro
+- **Tailwind**: botas de couro + 2 penas + açúcar
+- **Tempestade**: 2 diamantes + olho do Ender + 2 membranas de phantom + pena
 
 ## Teclas e conflitos
-Os padrões Q/E/C/X conflitam com ações vanilla (Q = soltar item, E = inventário). Enquanto a habilidade estiver **desbloqueada**, o mod consome o clique da ação vanilla que usa a mesma tecla; habilidades ainda bloqueadas não interferem. Para voltar a soltar itens com Q, rebinde as teclas em *Opções > Controles > Jett Mobility*.
+Q/E/C/X conflitam com ações vanilla (Q soltar, E inventário). Com a habilidade **desbloqueada**, o mod consome o clique da ação vanilla que usa a mesma tecla. Rebinde em *Opções > Controles > Jett Mobility*. Valores de jogabilidade ficam em `JettTuning.java` (velocidade do dash, raio da esfera, durações).
 
 ## Compilar
-Requisitos: JDK 21 e internet (Gradle baixa Minecraft, Fabric Loom e Fabric API).
+JDK 21 e internet. `gradle wrapper --gradle-version 9.2.1` e depois `./gradlew build`, ou use o workflow do GitHub Actions. O JAR fica em `build/libs/jett-mobility-1.2.0.jar` (não o `-sources`).
 
-```
-gradle wrapper --gradle-version 9.2.1   # só na primeira vez
-./gradlew build                         # Windows: gradlew.bat build
-```
-O JAR fica em `build/libs/jett-mobility-1.1.0.jar` (use o que **não** termina em `-sources`).
-Alternativa sem instalar nada: suba o projeto no GitHub; o workflow `.github/workflows/build.yml` compila e publica o JAR como artefato.
-
-Dependências (conferidas em 2026-11-14): Minecraft 1.21.11, Fabric Loader 0.18.1, Fabric Loom 1.14, Fabric API 0.141.6+1.21.11, mapeamentos Mojang (1.21.11 é a última versão ofuscada; Yarn não é atualizado depois dela).
+Dependências: Minecraft 1.21.11, Fabric Loader 0.18.1, Loom 1.14, Fabric API 0.141.6+1.21.11, mapeamentos Mojang.
 
 ## Estado de verificação
-Este código **não foi compilado nem executado no Minecraft** pela sessão que o escreveu (sem acesso de rede aos repositórios Fabric/Mojang). Foram conferidos apenas: JSON dos recursos válido e sintaxe Java sem erros. Se o primeiro `gradle build` acusar erro de símbolo, é provável que seja um nome de API do 1.21.11 a ajustar.
+- Verificado: v1.1.0 compilou no GitHub Actions. Na v1.2.0, o JSON dos recursos é válido, a sintaxe Java confere, e a geometria dos modelos foi conferida em uma renderização própria (não é captura do jogo).
+- **Não verificado**: a v1.2.0 ainda não foi compilada nem executada no Minecraft. Aparência real dos efeitos, transparência da esfera, posição da faca na mão e comportamento em multiplayer precisam ser testados no jogo.

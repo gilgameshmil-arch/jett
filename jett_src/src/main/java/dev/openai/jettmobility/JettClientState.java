@@ -29,4 +29,13 @@ public final class JettClientState {
     public static int remainingTicks(Ability ability) {
         return (int) Math.max(0, COOLDOWN_END[ability.ordinal()] - clientTicks);
     }
+
+    public static boolean isReady(Ability ability) {
+        return isUnlocked(ability) && remainingTicks(ability) == 0;
+    }
+
+    /** Cooldown "previsto" no cliente no instante da tecla; o servidor corrige no próximo StateS2C. */
+    public static void startCooldown(Ability ability) {
+        COOLDOWN_END[ability.ordinal()] = clientTicks + ability.cooldownTicks;
+    }
 }

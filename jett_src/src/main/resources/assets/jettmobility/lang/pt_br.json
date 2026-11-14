@@ -7,13 +7,14 @@
   "ability.jettmobility.updraft": "Updraft",
   "ability.jettmobility.cloudburst": "Cloudburst",
   "ability.jettmobility.tailwind": "Tailwind",
-  "ability.jettmobility.ultimate": "Tempestade",
+  "ability.jettmobility.ultimate": "Tempestade de Facas",
   "item.jettmobility.updraft_unlock": "Desbloqueio: Updraft",
   "item.jettmobility.cloudburst_unlock": "Desbloqueio: Cloudburst",
   "item.jettmobility.tailwind_unlock": "Desbloqueio: Tailwind",
-  "item.jettmobility.wind_mastery_unlock": "Desbloqueio: Tempestade (ultimate visual)",
+  "item.jettmobility.wind_mastery_unlock": "Desbloqueio: Tempestade de Facas",
   "message.jettmobility.unlocked": "Habilidade desbloqueada: %s",
   "message.jettmobility.already_unlocked": "Você já desbloqueou %s",
   "hud.jettmobility.ready": "PRONTO",
-  "hud.jettmobility.locked": "BLOQ."
+  "hud.jettmobility.locked": "BLOQ.",
+  "item.jettmobility.wind_knife": "Faca de Vento"
 }

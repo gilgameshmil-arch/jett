@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    "minecraft:iron_ingot",
+    "minecraft:feather",
+    "minecraft:amethyst_shard"
+  ],
+  "result": {
+    "id": "jettmobility:wind_knife",
+    "count": 1
+  }
+}
